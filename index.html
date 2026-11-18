@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfólio de Gabriel Vieira</title>
+<meta name="description" content="Gabriel Vieira: sistemas web, automações com IA, dashboards e sites.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: fundo náutico escuro; cada TIPO de projeto tem uma cor (sistema, automação, dashboard, site)
+   e cada projeto em destaque tem a cor da sua marca. Título sempre antes das telas. */
+:root{
+  --abyss:#070B14; --hull:#0D1422; --deep:#0A101C; --rule:#1E2A3D;
+  --foam:#E6ECF3; --mist:#93A3B8; --sonar:#4FD8D2;
+  --c-sys:#4FD8D2; --c-auto:#FFB547; --c-bi:#A78BFA; --c-site:#FF7EB6;
+  --ok:#5BD99A; --live:#5FB6E6; --dev:#F2B84B; --proto:#C9B2F5;
+  --display:"Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --gutter:clamp(18px, 4vw, 56px);
+  --max:1200px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--abyss);color:var(--foam);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img,video{max-width:100%}
+:focus-visible{outline:2px solid var(--sonar);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.05}
+p{margin:0}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:20;background:rgba(7,11,20,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+.nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:19px}
+.mono{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;font:800 14px var(--display);letter-spacing:.02em;color:#070B14;background:linear-gradient(135deg,var(--c-sys),var(--c-bi) 55%,var(--c-site))}
+.brand small{font:400 14px var(--body);color:var(--mist);margin-left:6px}
+.nav ul{display:flex;gap:22px;list-style:none;margin:0 0 0 auto;padding:0}
+.nav ul a{text-decoration:none;color:var(--mist);font-size:15px}
+.nav ul a:hover{color:var(--foam)}
+.lang{display:flex;border:1px solid var(--rule);border-radius:999px;padding:3px}
+.lang button{background:none;border:0;color:var(--mist);font:500 13px var(--body);padding:4px 10px;border-radius:999px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--sonar);color:var(--abyss)}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--rule)}
+#sonar{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding-top:76px;padding-bottom:80px}
+.hero h1{font-size:clamp(36px,4.8vw,62px);font-weight:800;letter-spacing:-.025em}
+.rot{display:block;color:var(--c-sys);transition:opacity .35s, transform .35s, color .35s}
+.rot.out{opacity:0;transform:translateY(10px)}
+.hero .lead{margin-top:20px;max-width:30em;color:var(--mist);font-size:19px}
+.kinds{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:22px 0 0;padding:0}
+.kinds li{display:flex;align-items:center;gap:8px;font-size:14px;color:#C7D6DF;padding:5px 12px;border-radius:999px;border:1px solid color-mix(in srgb,var(--c) 45%,transparent);background:color-mix(in srgb,var(--c) 10%,transparent)}
+.kinds li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c)}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 15px var(--body);text-decoration:none;padding:13px 20px;border-radius:10px;border:1px solid var(--rule);background:transparent;color:var(--foam);cursor:pointer}
+.btn.primary{background:var(--sonar);border-color:var(--sonar);color:var(--abyss)}
+.btn:hover{border-color:var(--sonar)}
+
+.console{background:var(--deep);border:1px solid var(--rule);border-radius:14px;box-shadow:0 30px 80px -30px rgba(79,216,210,.25);font-family:var(--mono);font-size:13.5px;overflow:hidden}
+.bar{display:flex;align-items:center;gap:7px;padding:10px 14px;border-bottom:1px solid var(--rule);color:var(--mist);font:12px var(--mono);background:var(--deep)}
+.bar i{width:10px;height:10px;border-radius:50%;background:var(--rule);flex:none}
+.bar span{margin-left:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.console ol{list-style:none;margin:0;padding:14px 14px 16px}
+.console li{display:flex;gap:10px;padding:5px 8px;border-radius:6px;transition:background .25s}
+.console li .t{flex:1;color:#C7D6DF;min-width:0}
+.console li .s{color:var(--ok);flex:none}
+.console li.cmd .t{color:var(--foam)}
+.console li.cmd b{color:var(--sonar);font-weight:500}
+.console li.run{background:rgba(79,216,210,.09)}
+.console li.run .s{color:var(--dev)}
+.console li.done .t{color:var(--ok)}
+
+/* SECTIONS */
+section.block{padding:84px 0;border-bottom:1px solid var(--rule)}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:12px 32px;margin-bottom:22px}
+.head h2{font-size:clamp(34px,4.2vw,52px);font-weight:800;letter-spacing:-.02em}
+.head p{color:var(--mist);font-size:15px;max-width:40em}
+.jump{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0 0 34px;padding:0}
+.jump a{display:flex;align-items:center;gap:8px;text-decoration:none;font-size:14px;color:#C7D6DF;padding:6px 13px;border-radius:999px;border:1px solid var(--rule);background:var(--hull)}
+.jump a::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c)}
+.jump a:hover{border-color:var(--c);color:var(--foam)}
+
+.cat{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--c);padding:3px 11px;border-radius:999px;background:color-mix(in srgb,var(--c) 14%,transparent);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);white-space:nowrap}
+.pill{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:500;padding:3px 10px 3px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.pill.prod{color:var(--ok)} .pill.live{color:var(--live)} .pill.proto{color:var(--proto)}
+.pill.prod::before{animation:ping 2.4s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(91,217,154,.55)}70%{box-shadow:0 0 0 7px rgba(91,217,154,0)}100%{box-shadow:0 0 0 0 rgba(91,217,154,0)}}
+.tags{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.tags li{font-size:13px;color:var(--mist);border:1px solid var(--rule);padding:2px 9px;border-radius:6px}
+
+/* SHOWCASE (projeto em destaque) */
+.show{--acc:#4FD8D2;display:grid;gap:22px;padding:30px;margin-bottom:28px;border-radius:22px;scroll-margin-top:80px;
+  border:1px solid color-mix(in srgb,var(--acc) 30%,var(--rule));
+  background:radial-gradient(110% 70% at 100% 0%, color-mix(in srgb,var(--acc) 17%,transparent), transparent 60%),
+             radial-gradient(70% 60% at 0% 100%, color-mix(in srgb,var(--acc) 8%,transparent), transparent 60%), var(--hull)}
+.show-head{display:grid;grid-template-columns:1.15fr .85fr;gap:28px 40px;align-items:end}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-bottom:14px;color:var(--mist);font-size:14px}
+.show h3{font-size:clamp(30px,3.6vw,44px);font-weight:800;letter-spacing:-.02em}
+.show h3::after{content:"";display:block;width:56px;height:4px;border-radius:2px;background:var(--acc);margin-top:14px}
+.show .desc{margin-top:14px;color:#C7D6DF;max-width:34em}
+.feats{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.feats li{display:flex;align-items:center;gap:10px;font-size:15px;padding:9px 12px;border-radius:10px;background:rgba(228,237,242,.04);border:1px solid var(--rule)}
+.feats li::before{content:"";flex:none;width:8px;height:8px;border-radius:2px;background:var(--acc);transform:rotate(45deg)}
+.frame{border-radius:14px;overflow:hidden;border:1px solid var(--rule);background:var(--deep);box-shadow:0 40px 90px -45px color-mix(in srgb,var(--acc) 70%,transparent)}
+.frame .bar button{margin-left:auto;font:500 12px var(--body);color:var(--foam);background:transparent;border:1px solid var(--rule);border-radius:6px;padding:3px 10px;cursor:pointer}
+.frame .bar button:hover{border-color:var(--acc)}
+.stage{position:relative;aspect-ratio:var(--ar,16/10);overflow:hidden;background:#EEF1F5}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity .55s ease;pointer-events:none}
+.slide.on{opacity:1;pointer-events:auto}
+.slide > img{width:100%;height:100%;object-fit:cover;object-position:top left;display:block}
+.slide video{width:100%;height:100%;object-fit:cover;display:block;background:#0e1430}
+.slide.page > img{height:auto;position:absolute;top:0;left:0}
+.slide.page.on > img{animation:pagescroll 10s ease-in-out forwards}
+@keyframes pagescroll{0%,12%{transform:translateY(0)}92%,100%{transform:translateY(var(--scroll,0px))}}
+.slide.phones{display:flex;justify-content:center;align-items:center;gap:5%;background:radial-gradient(80% 90% at 50% 100%, color-mix(in srgb,var(--acc) 30%,transparent), transparent 70%), #0E1526}
+.phone{height:86%;aspect-ratio:390/844;border-radius:26px;border:6px solid #222c3a;overflow:hidden;background:#000;box-shadow:0 20px 40px -20px rgba(0,0,0,.8)}
+.phone img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.cap{padding:11px 16px;font-size:15px;color:#C7D6DF;border-top:1px solid var(--rule)}
+.cap b{color:var(--foam);font-weight:600;margin-right:6px}
+.cap span{color:var(--mist)}
+.show.paused .prog i,.show.off .prog i,.show.paused .slide.page.on > img,.show.off .slide.page.on > img{animation-play-state:paused}
+.thumbs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.thumbs button{position:relative;display:grid;gap:7px;width:100%;text-align:left;padding:6px 6px 12px;border:1px solid var(--rule);border-radius:10px;background:rgba(228,237,242,.03);color:var(--mist);font:500 13px var(--body);cursor:pointer}
+.thumbs button:hover{color:var(--foam);border-color:color-mix(in srgb,var(--acc) 50%,var(--rule))}
+.thumbs button[aria-current="true"]{color:var(--foam);border-color:var(--acc);background:color-mix(in srgb,var(--acc) 10%,transparent)}
+.thumbs img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top left;border-radius:6px;display:block}
+.thumbs .lbl{padding:0 2px;line-height:1.2}
+.prog{position:absolute;left:8px;right:8px;bottom:5px;height:3px;border-radius:2px;background:rgba(228,237,242,.08);overflow:hidden}
+.prog i{display:block;width:100%;height:100%;background:var(--acc);transform-origin:left;transform:scaleX(0)}
+.thumbs button[aria-current="true"] .prog i{animation:prog var(--dur,5s) linear forwards}
+@keyframes prog{to{transform:scaleX(1)}}
+.show-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
+.show-foot .note{color:var(--mist);font-size:13px}
+
+dialog#lightbox{padding:0;border:1px solid var(--rule);border-radius:12px;background:var(--abyss);width:96vw;max-width:1500px;max-height:92vh;overflow:auto}
+dialog#lightbox::backdrop{background:rgba(3,6,12,.9)}
+#lbBody img,#lbBody video{display:block;width:100%;height:auto}
+#lbBody .row{display:flex;gap:16px;justify-content:center;padding:16px}
+#lbBody .row img{width:min(30%,360px)}
+dialog#lightbox > button{position:sticky;top:10px;float:right;margin:10px;z-index:2;font:600 14px var(--body);background:var(--abyss);color:var(--foam);border:1px solid var(--rule);border-radius:8px;padding:8px 14px;cursor:pointer}
+
+/* TILES (automações e dashboards) */
+.sub{font:600 22px var(--display);margin:46px 0 18px;color:var(--foam)}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.tile{--c:var(--c-auto);display:flex;flex-direction:column;background:radial-gradient(90% 60% at 100% 0%, color-mix(in srgb,var(--c) 14%,transparent), transparent 60%), var(--hull);border:1px solid color-mix(in srgb,var(--c) 28%,var(--rule));border-radius:18px;overflow:hidden;transition:transform .25s, border-color .25s;scroll-margin-top:80px}
+.tile:hover{transform:translateY(-4px);border-color:var(--c)}
+.t-head{padding:20px 20px 16px;display:grid;gap:10px}
+.t-head .meta{margin:0}
+.t-head h3{font-size:23px;font-weight:600;letter-spacing:-.01em}
+.t-head p{color:#C7D6DF;font-size:15px}
+.viz{margin:0 20px;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--deep);display:flex;flex-direction:column;min-height:220px}
+.viz .stage2{flex:1;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;gap:8px;font:12.5px var(--mono);color:#C7D6DF}
+.t-foot{padding:16px 20px 20px;margin-top:auto}
+.rep{display:grid;grid-template-columns:16px 1fr auto;gap:6px 8px;align-items:center}
+.rep .ic{color:var(--ok)} .rep .ic.w{color:var(--dev)}
+.rep .st{font-size:11px;padding:1px 7px;border-radius:5px;background:rgba(91,217,154,.12);color:var(--ok)}
+.rep .st.w{background:rgba(242,184,75,.14);color:var(--dev)}
+.sum{margin-top:6px;padding-top:8px;border-top:1px dashed var(--rule);color:var(--mist);font-size:11.5px}
+.dash{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:end}
+.kp{display:grid;gap:8px}
+.kp div{border:1px solid var(--rule);border-radius:8px;padding:7px 9px}
+.kp small{display:block;color:var(--mist);font:11px var(--body)}
+.kp b{font:600 17px var(--display);color:var(--foam);font-variant-numeric:tabular-nums}
+.dash svg{width:100%;height:140px;display:block}
+.flow{display:grid;grid-template-columns:auto auto 1fr;gap:10px;align-items:center}
+.pdfs{display:grid;gap:6px}
+.pdfs span{display:block;font-size:10.5px;padding:4px 7px;border:1px solid var(--rule);border-radius:6px;color:var(--mist)}
+.pdfs span::before{content:"PDF";font-weight:500;color:#F27A6B;margin-right:5px}
+.arrow{color:var(--c-auto);font-size:18px}
+.rows{display:grid;gap:6px}
+.rows div{display:grid;grid-template-columns:1fr auto;gap:2px 6px;align-items:center;padding:5px 7px;border-radius:6px;background:rgba(228,237,242,.04)}
+.rows em{font-style:normal;font-size:10.5px;padding:1px 6px;border-radius:5px;background:rgba(255,181,71,.14);color:var(--c-auto);justify-self:start}
+.rows .v{color:var(--foam);font-variant-numeric:tabular-nums;grid-row:span 2;align-self:center}
+
+/* SERVICES */
+.services{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.svc{--c:var(--c-sys);padding:22px;border-radius:16px;background:linear-gradient(180deg, color-mix(in srgb,var(--c) 12%,transparent), transparent 70%), var(--hull);border:1px solid color-mix(in srgb,var(--c) 30%,var(--rule));border-top:3px solid var(--c);display:flex;flex-direction:column;gap:10px}
+.svc svg{width:30px;height:30px;color:var(--c)}
+.svc h3{font-size:21px;font-weight:600}
+.svc p{color:#C7D6DF;font-size:14.5px}
+.svc .tools{color:var(--mist);font-size:13.5px;margin-top:auto}
+.svc .count{font-size:13px;color:var(--c);font-weight:600}
+.steps{list-style:none;margin:28px 0 0;padding:0;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;counter-reset:s;font-size:15px}
+.steps li{counter-increment:s;display:flex;align-items:center;gap:8px}
+.steps li::before{content:counter(s);width:24px;height:24px;border-radius:50%;border:1px solid var(--sonar);color:var(--sonar);display:grid;place-items:center;font:600 12px var(--display)}
+.steps li b{font-weight:600}
+.steps li:not(:last-child)::after{content:"";width:28px;height:1px;background:var(--rule);margin-left:6px}
+
+/* ABOUT + CONTACT */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.duo h2{font-size:clamp(32px,3.8vw,48px);font-weight:800;letter-spacing:-.02em}
+.about p{color:#C7D6DF;margin-top:20px;max-width:32em}
+.facts{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:22px 0 0;padding:0}
+.facts li{font-size:14px;border:1px solid var(--rule);border-radius:999px;padding:5px 12px;color:#C7D6DF}
+.contact .intro{color:var(--mist);margin-top:14px}
+.channels{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+.channels a{display:flex;justify-content:space-between;gap:12px;text-decoration:none;padding:13px 16px;border:1px solid var(--rule);border-radius:10px}
+.channels a:hover{border-color:var(--sonar)}
+.channels a span:last-child{color:var(--mist)}
+form{display:grid;gap:14px;background:var(--hull);border:1px solid var(--rule);border-radius:16px;padding:24px;margin-top:24px}
+label{display:grid;gap:6px;font-size:14px;color:var(--mist)}
+input,textarea{font:16px var(--body);color:var(--foam);background:var(--abyss);border:1px solid var(--rule);border-radius:8px;padding:10px 12px;width:100%}
+input:focus,textarea:focus{outline:none;border-color:var(--sonar)}
+textarea{min-height:90px;resize:vertical}
+.out{display:none;gap:10px}
+.out.show{display:grid}
+.out pre{margin:0;white-space:pre-wrap;font:14px/1.55 var(--mono);background:var(--abyss);border:1px dashed var(--rule);border-radius:8px;padding:12px;color:#C7D6DF}
+.out .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.out .msg{color:var(--ok);font-size:14px}
+footer{padding:30px 0 44px;color:var(--mist);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+@media (max-width:1000px){
+  .hero .wrap,.show-head,.duo{grid-template-columns:1fr}
+  .tiles{grid-template-columns:1fr 1fr}
+  .services{grid-template-columns:1fr 1fr}
+}
+@media (max-width:720px){
+  .nav ul{display:none}
+  .lang{margin-left:auto}
+  .tiles,.services{grid-template-columns:1fr}
+  .show{padding:18px;gap:18px}
+  .thumbs{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:42%;overflow-x:auto;padding-bottom:4px}
+  .feats li{font-size:14px;padding:7px 10px}
+  section.block{padding:60px 0}
+  .hero .wrap{padding-top:48px;padding-bottom:56px;gap:32px}
+  .steps li:not(:last-child)::after{display:none}
+  .phone{border-width:4px;border-radius:16px}
+}
+.rm .slide.page{overflow-y:auto}
+.rm .slide.page > img{position:static}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .pill.prod::before{animation:none}
+  .prog{display:none}
+  .slide{transition:none}
+  .tile{transition:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Principal">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Gabriel Vieira, início">
+      <span class="mono" aria-hidden="true">GV</span>
+      <span>Gabriel Vieira <small data-i18n="brand.role">dados e automação</small></span>
+    </a>
+    <ul>
+      <li><a href="#projetos" data-i18n="nav.projects">Projetos</a></li>
+      <li><a href="#servicos" data-i18n="nav.services">O que eu faço</a></li>
+      <li><a href="#contato" data-i18n="nav.contact">Contato</a></li>
+    </ul>
+    <div class="lang" role="group" aria-label="Idioma">
+      <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="sonar" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <h1><span data-i18n="hero.h1">Transformo processos manuais em</span> <span class="rot" id="rot" aria-hidden="true">sistemas web.</span><span class="sr" id="rotSr"></span></h1>
+      <p class="lead" data-i18n="hero.lead">Projetos reais, em uso por empresas, feitos com dados, código e IA.</p>
+      <ul class="kinds" id="kinds"></ul>
+      <div class="ctas">
+        <a class="btn primary" href="#projetos" data-i18n="hero.cta1">Ver projetos</a>
+        <a class="btn" href="#contato" data-i18n="hero.cta2">Falar comigo</a>
+      </div>
+    </div>
+    <div class="console" aria-label="Exemplo de automação em execução">
+      <div class="bar"><i></i><i></i><i></i><span data-i18n="console.title">exemplo: fechamento de comissões</span></div>
+      <ol id="con">
+        <li class="cmd"><span class="t">$ python <b>apuracao_comissoes.py</b></span></li>
+        <li><span class="t" data-i18n="console.l1">lendo planilhas de vendas</span><span class="s">ok</span></li>
+        <li><span class="t" data-i18n="console.l2">validando valores e fornecedores</span><span class="s">ok</span></li>
+        <li><span class="t" data-i18n="console.l3">calculando comissões</span><span class="s">ok</span></li>
+        <li><span class="t" data-i18n="console.l4">atualizando o dashboard</span><span class="s">ok</span></li>
+        <li class="done"><span class="t" data-i18n="console.l5">concluído, sem copiar e colar.</span></li>
+      </ol>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="block" id="projetos">
+  <div class="wrap">
+    <div class="head">
+      <h2 data-i18n="projects.h2">Projetos</h2>
+      <p data-i18n="projects.sub">Telas reais com dados fictícios. Projetos internos aparecem sem o nome da empresa.</p>
+    </div>
+    <ul class="jump" id="jump"></ul>
+    <div id="shows"></div>
+    <h3 class="sub" id="automacoes" data-i18n="tiles.h">Automações e dashboards</h3>
+    <div class="tiles" id="tiles"></div>
+  </div>
+</section>
+
+<section class="block" id="servicos">
+  <div class="wrap">
+    <div class="head"><h2 data-i18n="services.h2">O que eu faço</h2></div>
+    <div class="services" id="services"></div>
+    <ol class="steps" aria-label="Como trabalho">
+      <li><b data-i18n="p1">Diagnóstico</b></li>
+      <li><b data-i18n="p2">Protótipo com seus dados</b></li>
+      <li><b data-i18n="p3">Entrega e treinamento</b></li>
+      <li><b data-i18n="p4">Suporte mensal</b></li>
+    </ol>
+  </div>
+</section>
+
+<section class="block" id="contato">
+  <div class="wrap duo">
+    <div class="about">
+      <h2 data-i18n="about.h2">Sobre mim</h2>
+      <p data-i18n="about.p">Gabriel Vieira, analista de dados em uma incorporadora em Belo Horizonte. Comecei automatizando o meu próprio trabalho; hoje faço o mesmo para outras empresas.</p>
+      <ul class="facts">
+        <li data-i18n="f1">Belo Horizonte, MG</li>
+        <li data-i18n="f2">Remoto, Brasil e exterior</li>
+        <li data-i18n="f3">Português e inglês fluente</li>
+        <li data-i18n="f4">Administração, PUC Minas</li>
+      </ul>
+    </div>
+    <div class="contact">
+      <h2 data-i18n="contact.h2">Vamos conversar?</h2>
+      <p class="intro" data-i18n="contact.intro">Conte em poucas linhas e eu respondo com uma ideia de solução.</p>
+      <div class="channels" id="channels"></div>
+      <form id="brief" novalidate>
+        <label for="fName"><span data-i18n="form.name">Seu nome e empresa</span><input id="fName" name="name" autocomplete="name" required></label>
+        <label for="fMsg"><span data-i18n="form.msg">O que você quer resolver</span><textarea id="fMsg" name="msg" required></textarea></label>
+        <button class="btn primary" type="submit" data-i18n="form.submit">Montar mensagem</button>
+        <div class="out" id="out" aria-live="polite">
+          <pre id="outText"></pre>
+          <div class="row"><button class="btn" type="button" id="copy" data-i18n="form.copy">Copiar mensagem</button><span class="msg" id="copied"></span></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<dialog id="lightbox" aria-label="Tela ampliada"><button type="button" id="lbClose" data-i18n="gal.close">Fechar</button><div id="lbBody"></div></dialog>
+
+<footer>
+  <div class="wrap">
+    <span>Gabriel Vieira</span>
+    <span data-i18n="footer">Belo Horizonte, Brasil</span>
+  </div>
+</footer>
+
+<script>
+/* ===== CONTATOS: preencha aqui ===== */
+const CONTACT = {
+  whatsapp: "",   // ex.: "5531999999999"
+  email: "",      // ex.: "seuemail@gmail.com"
+  linkedin: ""    // ex.: "https://www.linkedin.com/in/seu-perfil"
+};
+
+/* ===== TIPOS DE PROJETO (cada um com uma cor) ===== */
+const CATS = {
+  sys:  {c:"#4FD8D2", pt:"Sistema web",      en:"Web system",    rot:{pt:"sistemas web.", en:"web systems."}},
+  auto: {c:"#FFB547", pt:"Automação com IA", en:"AI automation", rot:{pt:"automações com IA.", en:"AI automations."}},
+  bi:   {c:"#A78BFA", pt:"Dashboard",        en:"Dashboard",     rot:{pt:"dashboards.", en:"dashboards."}},
+  site: {c:"#FF7EB6", pt:"Site",             en:"Website",       rot:{pt:"sites.", en:"websites."}}
+};
+
+/* ===== PROJETOS EM DESTAQUE ===== */
+const SHOWS = [
+ {id:"monarca", cat:"sys", status:"prod", acc:"#E3B55B", ar:"1600/1000", bar:"monarca · sistema de vendas", stack:["Python","Streamlit","Supabase"],
+  pt:{title:"Sistema de vendas Monarca", client:"Grupo Monarca, casas de eventos", desc:"Vendas, metas e comissões de duas casas de eventos num só sistema.", feats:["Login por perfil para cada vendedora","Metas por mês e por local","Comissão por faixa de meta e guelta","Exportação para Excel"]},
+  en:{title:"Monarca sales system", client:"Grupo Monarca, event venues", desc:"Sales, targets and commissions for two event venues in one system.", feats:["Role-based login for each rep","Targets by month and venue","Tiered commission plus bonus","Excel export"]},
+  slides:[
+   {type:"img", src:"img/monarca-02-dashboard.webp", pt:["Dashboard","meta x realizado do ano."], en:["Dashboard","yearly target vs. actual."]},
+   {type:"img", src:"img/monarca-03-locais.webp", pt:["Metas por local","cada local, mês a mês."], en:["Targets by venue","each venue, month by month."]},
+   {type:"img", src:"img/monarca-04-painel.webp", pt:["Vendas","todas as vendas, com filtro por vendedora."], en:["Sales","every sale, filterable by rep."]},
+   {type:"img", src:"img/monarca-05-remuneracao.webp", pt:["Remuneração","comissão por faixa e guelta."], en:["Compensation","tiered commission and bonus."]},
+   {type:"img", src:"img/monarca-06-acessos.webp", pt:["Acessos","criar, editar e remover usuários."], en:["User access","create, edit and remove users."]},
+   {type:"img", src:"img/monarca-01-login.webp", pt:["Login","acesso criado pelo administrador."], en:["Sign in","access created by the admin."]}
+  ]},
+ {id:"premiacoes", cat:"sys", status:"prod", acc:"#FF8A3D", ar:"1600/761", bar:"controle de premiações · backoffice", stack:["Python","Streamlit","Power BI"],
+  pt:{title:"Controle de Premiações", client:"Incorporadora imobiliária (confidencial)", desc:"As campanhas de premiação chegavam soltas por e-mail. Agora ficam num só lugar, com status, valor pago e VGV gerado.", feats:["Lê o PPT e cria as campanhas","Status do lançamento ao pagamento","Valor pago e VGV por campanha","Base pronta para o Power BI"]},
+  en:{title:"Sales Incentive Tracker", client:"Real estate developer (confidential)", desc:"Incentive campaigns used to arrive scattered by email. Now they live in one place, with status, amount paid and sales generated.", feats:["Reads the PPT and creates campaigns","Status from launch to payment","Amount paid and sales per campaign","Data ready for Power BI"]},
+  slides:[
+   {type:"img", src:"img/premiacoes-painel.webp", pt:["Painel","campanhas ativas, para apurar e pagas."], en:["Overview","active, pending and paid campaigns."]},
+   {type:"img", src:"img/premiacoes-nova.webp", pt:["Nova campanha","cadastro guiado com prévia."], en:["New campaign","guided form with preview."]},
+   {type:"img", src:"img/premiacoes-importar.webp", pt:["Importar PPT","cada slide vira uma campanha."], en:["Import PPT","each slide becomes a campaign."]},
+   {type:"img", src:"img/premiacoes-bi.webp", pt:["Base para BI","5 tabelas prontas para o Power BI."], en:["BI export","5 tables ready for Power BI."]}
+  ]},
+ {id:"pendencias", cat:"sys", status:"prod", acc:"#3DDC84", ar:"1600/757", bar:"pendências cr · backoffice", stack:["Python","Streamlit"],
+  pt:{title:"Controle de Pendências CR", client:"Incorporadora imobiliária (confidencial)", desc:"As pendências de fechamento eram controladas à mão e cobradas no Teams. Agora cada regional trata as suas e nada acumula no fim do mês.", feats:["Importa a planilha sozinho","Cada assistente vê só a sua regional","Dashboard com SLA e críticas","E-mails de cobrança prontos"]},
+  en:{title:"Closing Issues Tracker", client:"Real estate developer (confidential)", desc:"Month-end issues were tracked by hand and chased in Teams. Now each region handles its own and nothing piles up at month end.", feats:["Imports the spreadsheet on its own","Each assistant sees only their region","Dashboard with SLA and critical items","Ready-to-send follow-up emails"]},
+  slides:[
+   {type:"img", src:"img/pendencias-dashboard.webp", pt:["Dashboard","abertas, críticas e SLA por regional."], en:["Dashboard","open, critical and SLA by region."]},
+   {type:"img", src:"img/pendencias-pendencias.webp", pt:["Pendências","prazo colorido, gerente e status."], en:["Issues","color-coded age, manager and status."]},
+   {type:"img", src:"img/pendencias-importar.webp", pt:["Importar","planilha, prévia e gravação."], en:["Import","spreadsheet, preview, save."]},
+   {type:"img", src:"img/pendencias-usuarios.webp", pt:["Usuários","acessos por perfil e regional."], en:["Users","access by role and region."]},
+   {type:"img", src:"img/pendencias-emails.webp", pt:["E-mails","cobrança pronta por regional."], en:["Emails","follow-ups ready by region."]},
+   {type:"img", src:"img/pendencias-login.webp", pt:["Login","acesso com e-mail corporativo."], en:["Sign in","corporate email login."]}
+  ]},
+ {id:"site-rh", cat:"site", status:"proto", acc:"#D9B98A", ar:"1280/760", bar:"site · consultoria de RH", stack:["HTML","CSS","JavaScript"],
+  pt:{title:"Site para consultoria de RH", client:"Consultoria de recrutamento (proposta)", desc:"Novo site institucional com página de vagas filtrável, pensado primeiro para o celular.", feats:["Vagas com filtro por área e cidade","Versões para celular e computador","WhatsApp em todas as páginas","Páginas de serviços e sobre"]},
+  en:{title:"Website for an HR consultancy", client:"Recruiting consultancy (proposal)", desc:"New company website with a filterable jobs page, designed mobile first.", feats:["Jobs filtered by field and city","Mobile and desktop versions","WhatsApp on every page","Services and about pages"]},
+  slides:[
+   {type:"video", src:"img/relou-navegacao.mp4", poster:"img/relou-navegacao.webp", dur:15.6, pt:["Navegação","transição entre as páginas."], en:["Navigation","moving between pages."]},
+   {type:"page", src:"img/relou-inicio.webp", pt:["Início","página inicial completa."], en:["Home","full home page."]},
+   {type:"page", src:"img/relou-servicos.webp", pt:["Serviços","serviços com pedido de proposta."], en:["Services","services with proposal requests."]},
+   {type:"page", src:"img/relou-sobre.webp", pt:["Sobre","história, valores e equipe."], en:["About","story, values and team."]},
+   {type:"phones", srcs:["img/relou-cel-inicio.webp","img/relou-cel-vagas.webp","img/relou-cel-servicos.webp"], pt:["Celular","versão para celular."], en:["Mobile","mobile version."]}
+  ]}
+];
+
+/* ===== AUTOMAÇÕES E DASHBOARDS (telas ilustrativas) ===== */
+const TILES = [
+  {id:"conferencia", k:"c1", cat:"auto", viz:"agent", status:"live", stack:["Claude","Chrome","Excel online"]},
+  {id:"extratos", k:"c3", cat:"auto", viz:"pdf", status:"live", stack:["Claude","Excel"]},
+  {id:"painel-comissoes", k:"c2", cat:"bi", viz:"dash", status:"live", stack:["Power BI","Power Query"]}
+];
+
+/* ===== TEXTOS (PT / EN) ===== */
+const T = {
+pt:{
+ "nav.projects":"Projetos","nav.services":"O que eu faço","nav.contact":"Contato","brand.role":"dados e automação",
+ "hero.h1":"Transformo processos manuais em","hero.lead":"Sou Gabriel Vieira, analista de dados. Aqui estão projetos reais, em uso, que construí com dados, código e IA.",
+ "hero.cta1":"Ver projetos","hero.cta2":"Falar comigo",
+ "console.title":"exemplo: fechamento de comissões",
+ "console.l1":"lendo planilhas de vendas","console.l2":"validando valores e fornecedores","console.l3":"calculando comissões","console.l4":"atualizando o dashboard","console.l5":"concluído, sem copiar e colar.",
+ "projects.h2":"Projetos","projects.sub":"Telas reais com dados fictícios. Projetos internos aparecem sem o nome da empresa.",
+ "status.prod":"Em produção","status.live":"Em uso","status.proto":"Proposta",
+ "gal.zoom":"Ampliar","gal.close":"Fechar","gal.note":"dados fictícios","gal.screens":"Telas do projeto","jump.auto":"Automações",
+ "tiles.h":"Automações e dashboards",
+ "c1.t":"Conferência de comissões com IA","c1.d":"Um agente confere cada comissão pendente com a planilha e grava pedido e protocolo. O analista só revisa as exceções.",
+ "c2.t":"Painel de comissões","c2.d":"Comissões e premiações da equipe de vendas num painel único, por vendedor e status de pagamento.",
+ "c3.t":"Extratos em PDF para planilha","c3.d":"Lê extratos de cinco bancos e cartões e devolve os gastos já classificados por categoria.",
+ "v1.bar":"relatório do agente","v1.ok":"gravado","v1.w":"revisar","v1.sum":"3 gravados na planilha, 1 para revisão",
+ "v2.bar":"painel de comissões","v2.k1":"Comissões no mês","v2.k2":"Vendedores",
+ "v3.bar":"extratos do mês","v3.r1":"Supermercado","v3.c1":"Mercado","v3.r2":"Posto","v3.c2":"Gasolina","v3.r3":"Restaurante","v3.c3":"Comida",
+ "illus":"ilustração",
+ "services.h2":"O que eu faço",
+ "s.sys":"Cadastros, controles e painéis com login por perfil.","s.auto":"Tarefas repetitivas feitas por agentes e fluxos automáticos.","s.bi":"Seus números num painel claro e atualizado.","s.site":"Sites rápidos, bonitos e fáceis de atualizar.",
+ "s.count1":"projeto no portfólio","s.countN":"projetos no portfólio",
+ "p1":"Diagnóstico","p2":"Protótipo com seus dados","p3":"Entrega e treinamento","p4":"Suporte mensal",
+ "about.h2":"Sobre mim","about.p":"Sou analista de dados em uma incorporadora em Belo Horizonte, onde cuido de apuração de comissões, premiações, dashboards e automações. Comecei automatizando o meu próprio trabalho e hoje construo sistemas completos com Python, SQL e IA.",
+ "f1":"Belo Horizonte, MG","f2":"Remoto, Brasil e exterior","f3":"Português e inglês fluente","f4":"Administração, PUC Minas",
+ "contact.h2":"Vamos conversar?","contact.intro":"Para vagas, projetos ou parcerias, me mande uma mensagem.",
+ "form.name":"Seu nome e empresa","form.msg":"Sua mensagem","form.submit":"Montar mensagem","form.copy":"Copiar mensagem",
+ "form.err":"Preencha seu nome e a mensagem.","form.copied":"Copiada. Cole no canal que preferir.","form.copyfail":"Não deu para copiar. Selecione o texto acima e copie.",
+ "form.tpl":"Olá, Gabriel! Sou {name}.\n\n{msg}",
+ "ch.whatsapp":"WhatsApp","ch.email":"E-mail","ch.linkedin":"LinkedIn","footer":"Belo Horizonte, Brasil"
+},
+en:{
+ "nav.projects":"Work","nav.services":"What I do","nav.contact":"Contact","brand.role":"data and automation",
+ "hero.h1":"I turn manual processes into","hero.lead":"I'm Gabriel Vieira, a data analyst. These are real projects, in use, that I built with data, code and AI.",
+ "hero.cta1":"See projects","hero.cta2":"Get in touch",
+ "console.title":"example: commission close",
+ "console.l1":"reading sales spreadsheets","console.l2":"checking amounts and vendors","console.l3":"calculating commissions","console.l4":"refreshing the dashboard","console.l5":"done, no copy and paste.",
+ "projects.h2":"Projects","projects.sub":"Real screens with fictitious data. Internal projects are shown without the company's name.",
+ "status.prod":"Live","status.live":"In use","status.proto":"Proposal",
+ "gal.zoom":"Enlarge","gal.close":"Close","gal.note":"fictitious data","gal.screens":"Project screens","jump.auto":"Automations",
+ "tiles.h":"Automations and dashboards",
+ "c1.t":"AI commission reconciliation","c1.d":"An agent checks each pending commission against the sheet and records order and protocol numbers. The analyst only reviews exceptions.",
+ "c2.t":"Commission dashboard","c2.d":"Sales team commissions and bonuses in one dashboard, by rep and payment status.",
+ "c3.t":"PDF statements to spreadsheet","c3.d":"Reads statements from five banks and cards and returns every expense already categorized.",
+ "v1.bar":"agent report","v1.ok":"recorded","v1.w":"review","v1.sum":"3 recorded in the sheet, 1 to review",
+ "v2.bar":"commission dashboard","v2.k1":"Commissions this month","v2.k2":"Sales reps",
+ "v3.bar":"monthly statements","v3.r1":"Supermarket","v3.c1":"Groceries","v3.r2":"Gas station","v3.c2":"Fuel","v3.r3":"Restaurant","v3.c3":"Food",
+ "illus":"illustration",
+ "services.h2":"What I do",
+ "s.sys":"Records, controls and dashboards with role-based login.","s.auto":"Repetitive work handled by agents and automated flows.","s.bi":"Your numbers in a clear, up-to-date dashboard.","s.site":"Fast, good-looking websites that are easy to update.",
+ "s.count1":"project in the portfolio","s.countN":"projects in the portfolio",
+ "p1":"Assessment","p2":"Prototype with your data","p3":"Delivery and training","p4":"Monthly support",
+ "about.h2":"About me","about.p":"I'm a data analyst at a real estate developer in Belo Horizonte, Brazil, handling commission and incentive calculations, dashboards and automations. I started by automating my own job and now build complete systems with Python, SQL and AI.",
+ "f1":"Belo Horizonte, Brazil","f2":"Remote, Brazil and abroad","f3":"Portuguese and fluent English","f4":"Business Administration, PUC Minas",
+ "contact.h2":"Let's talk?","contact.intro":"For jobs, projects or partnerships, send me a message.",
+ "form.name":"Your name and company","form.msg":"Your message","form.submit":"Build message","form.copy":"Copy message",
+ "form.err":"Fill in your name and the message.","form.copied":"Copied. Paste it in the channel you prefer.","form.copyfail":"Couldn't copy. Select the text above and copy it.",
+ "form.tpl":"Hi Gabriel! I'm {name}.\n\n{msg}",
+ "ch.whatsapp":"WhatsApp","ch.email":"Email","ch.linkedin":"LinkedIn","footer":"Belo Horizonte, Brazil"
+}};
+
+let lang = "pt";
+const t = k => (T[lang][k] ?? T.pt[k] ?? k);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const brl = n => "R$ " + n.toLocaleString(lang === "pt" ? "pt-BR" : "en-US", {minimumFractionDigits:2, maximumFractionDigits:2});
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (reduce) document.documentElement.classList.add("rm");
+const catBadge = k => `<span class="cat" style="--c:${CATS[k].c}">${esc(CATS[k][lang])}</span>`;
+const durOf = s => s.type === "video" ? s.dur : s.type === "page" ? 10.5 : 5;
+
+/* ===== RENDER ===== */
+function slideHTML(s, i, on){
+  const cls = `slide ${s.type}${on ? " on" : ""}`;
+  if (s.type === "video") return `<div class="${cls}" data-i="${i}"><video src="${s.src}" poster="${s.poster}" muted playsinline preload="metadata" aria-label="${esc(s[lang][0])}"></video></div>`;
+  if (s.type === "phones") return `<div class="${cls}" data-i="${i}">${s.srcs.map(x => `<div class="phone"><img src="${x}" alt="" loading="lazy"></div>`).join("")}</div>`;
+  return `<div class="${cls}" data-i="${i}"><img src="${s.src}" alt="${esc(s[lang].join(": "))}" ${i ? 'loading="lazy"' : ""}></div>`;
+}
+function thumbSrc(s){ return s.type === "video" ? s.poster : s.type === "phones" ? s.srcs[0] : s.src; }
+
+function renderShows(){
+  document.getElementById("shows").innerHTML = SHOWS.map((S,si) => {
+    const d = S[lang], cur = S.cur || 0, s = S.slides[cur];
+    return `<article class="show" id="${S.id}" data-s="${si}" style="--acc:${S.acc}">
+      <header class="show-head">
+        <div>
+          <div class="meta">${catBadge(S.cat)}<span class="pill ${S.status}">${esc(t("status." + S.status))}</span><span>${esc(d.client)}</span></div>
+          <h3>${esc(d.title)}</h3>
+          <p class="desc">${esc(d.desc)}</p>
+        </div>
+        <ul class="feats">${d.feats.map(f => `<li>${esc(f)}</li>`).join("")}</ul>
+      </header>
+      <div class="frame">
+        <div class="bar"><i></i><i></i><i></i><span>${esc(S.bar)}</span><button type="button" class="zoom" data-s="${si}">${esc(t("gal.zoom"))}</button></div>
+        <div class="stage" style="--ar:${S.ar}">${S.slides.map((x,i) => slideHTML(x, i, i === cur)).join("")}</div>
+        <p class="cap"><b>${esc(s[lang][0])}</b>${esc(s[lang][1])} <span>(${esc(t("gal.note"))})</span></p>
+      </div>
+      <ol class="thumbs" aria-label="${esc(t("gal.screens"))}">${S.slides.map((x,i) =>
+        `<li><button type="button" data-s="${si}" data-i="${i}" aria-current="${i === cur}" style="--dur:${durOf(x)}s"><img src="${thumbSrc(x)}" alt="" loading="lazy"><span class="lbl">${esc(x[lang][0])}</span><span class="prog"><i></i></span></button></li>`).join("")}</ol>
+      <div class="show-foot"><ul class="tags">${S.stack.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
+    </article>`;
+  }).join("");
+  document.querySelectorAll(".slide.page img").forEach(img => img.complete ? fitPage(img) : img.addEventListener("load", () => fitPage(img), {once:true}));
+  observeShows();
+  SHOWS.forEach((S,si) => playVideo(si));
+}
+
+function setSlide(si, i){
+  const S = SHOWS[si]; S.cur = i;
+  const el = document.querySelector(`.show[data-s="${si}"]`); if (!el) return;
+  el.querySelectorAll(".slide").forEach(sl => {
+    const on = Number(sl.dataset.i) === i; sl.classList.toggle("on", on);
+    const img = sl.querySelector(":scope.page > img"); if (img){ img.style.animation = "none"; void img.offsetWidth; img.style.animation = ""; }
+  });
+  const s = S.slides[i];
+  el.querySelector(".cap").innerHTML = `<b>${esc(s[lang][0])}</b>${esc(s[lang][1])} <span>(${esc(t("gal.note"))})</span>`;
+  el.querySelectorAll(".thumbs button").forEach(b => {
+    const on = Number(b.dataset.i) === i; b.setAttribute("aria-current", String(on));
+    const p = b.querySelector(".prog"); const fresh = p.cloneNode(true); p.replaceWith(fresh);
+  });
+  playVideo(si);
+}
+function playVideo(si){
+  const el = document.querySelector(`.show[data-s="${si}"]`); if (!el) return;
+  el.querySelectorAll(".slide video").forEach(v => {
+    const active = v.parentElement.classList.contains("on") && !el.classList.contains("off");
+    if (active){ if (v.paused){ v.currentTime = v.currentTime >= v.duration - .1 ? 0 : v.currentTime; v.play().catch(() => {}); } } else v.pause();
+  });
+}
+function fitPage(img){
+  const st = img.closest(".stage"); const d = img.offsetHeight - st.clientHeight;
+  img.style.setProperty("--scroll", (d > 0 ? -d : 0) + "px");
+}
+let io;
+function observeShows(){
+  if (io) io.disconnect();
+  io = new IntersectionObserver(es => es.forEach(e => {
+    e.target.classList.toggle("off", !e.isIntersecting); playVideo(Number(e.target.dataset.s));
+  }), {threshold:.35});
+  document.querySelectorAll(".show").forEach(s => { s.classList.add("off"); io.observe(s); });
+}
+
+const VIZ = {
+  agent(){
+    const rows = [[450012,1532.26,1],[450013,2180,1],[450014,960,1],[450015,3400,0]];
+    return `<div class="rep">${rows.map(([d,v,ok]) =>
+      `<span class="ic${ok?"":" w"}">${ok?"✓":"!"}</span><span>Doc ${d} · ${brl(v)}</span><span class="st${ok?"":" w"}">${t(ok?"v1.ok":"v1.w")}</span>`).join("")}</div><div class="sum">${t("v1.sum")}</div>`;
+  },
+  dash(){
+    const v = [42,58,51,66,73,61,79,88], w = 240, h = 140, bw = 20, gap = (w - v.length*bw)/(v.length-1);
+    const bars = v.map((x,i) => { const bh = x/100*(h-16); return `<rect x="${(i*(bw+gap)).toFixed(1)}" y="${(h-bh).toFixed(1)}" width="${bw}" height="${bh.toFixed(1)}" rx="3" fill="${i===v.length-1?"#A78BFA":"#3B3570"}"/>`; }).join("");
+    const grid = [.33,.66].map(p => `<line x1="0" x2="${w}" y1="${(h-p*(h-16)).toFixed(1)}" y2="${(h-p*(h-16)).toFixed(1)}" stroke="#1B3345" stroke-dasharray="3 4"/>`).join("");
+    return `<div class="dash"><div class="kp"><div><small>${t("v2.k1")}</small><b>${lang==="pt"?"R$ 84,2 mil":"R$ 84.2k"}</b></div><div><small>${t("v2.k2")}</small><b>37</b></div></div><svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">${grid}${bars}</svg></div>`;
+  },
+  pdf(){
+    const r = [["v3.r1","v3.c1",312.4],["v3.r2","v3.c2",180],["v3.r3","v3.c3",96.5]];
+    return `<div class="flow"><div class="pdfs"><span>banco_a</span><span>cartao_b</span><span>cartao_c</span></div><div class="arrow" aria-hidden="true">→</div>
+      <div class="rows">${r.map(([a,c,v]) => `<div><span>${t(a)}</span><span class="v">${brl(v)}</span><em>${t(c)}</em></div>`).join("")}</div></div>`;
+  }
+};
+function renderTiles(){
+  document.getElementById("tiles").innerHTML = TILES.map(x => `
+    <article class="tile" id="${x.id}" style="--c:${CATS[x.cat].c}">
+      <div class="t-head">
+        <div class="meta">${catBadge(x.cat)}<span class="pill ${x.status}">${esc(t("status." + x.status))}</span></div>
+        <h3>${esc(t(x.k + ".t"))}</h3>
+        <p>${esc(t(x.k + ".d"))}</p>
+      </div>
+      <div class="viz"><div class="bar"><i></i><i></i><i></i><span>${esc(t("v" + x.k.slice(1) + ".bar"))} · ${esc(t("illus"))}</span></div><div class="stage2">${VIZ[x.viz]()}</div></div>
+      <div class="t-foot"><ul class="tags">${x.stack.map(s => `<li>${esc(s)}</li>`).join("")}</ul></div>
+    </article>`).join("");
+}
+function renderJump(){
+  const items = SHOWS.map(S => [S.id, S[lang].title.replace(/^Sistema de vendas |^Controle de /,"").replace(/ sales system$/,""), S.acc]);
+  items.push(["automacoes", t("jump.auto"), CATS.auto.c]);
+  document.getElementById("jump").innerHTML = items.map(([id,l,c]) => `<li><a href="#${id}" style="--c:${c}">${esc(l)}</a></li>`).join("");
+}
+const ICONS = {
+  sys:'<rect x="4" y="6" width="24" height="20" rx="2"/><path d="M4 11h24M10 16h12M10 20h8"/>',
+  auto:'<path d="M4 9h8l4 7-4 7H4"/><path d="M20 9h8M20 23h8M16 16h12"/><circle cx="16" cy="16" r="2"/>',
+  bi:'<path d="M5 27V5M5 27h22"/><path d="M10 21v-5M15 21v-9M20 21v-6M25 21V9"/>',
+  site:'<circle cx="16" cy="16" r="12"/><path d="M4 16h24M16 4c3.5 3.5 5 7.5 5 12s-1.5 8.5-5 12c-3.5-3.5-5-7.5-5-12s1.5-8.5 5-12z"/>'
+};
+const TOOLS = {sys:"Python, Streamlit, Supabase", auto:"Agentes de IA, Power Automate, Python", bi:"Power BI, Excel, SQL", site:"HTML, CSS, JavaScript"};
+function renderServices(){
+  document.getElementById("services").innerHTML = Object.keys(CATS).map(k => {
+    const n = SHOWS.filter(S => S.cat === k).length + TILES.filter(x => x.cat === k).length;
+    return `<div class="svc" style="--c:${CATS[k].c}"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[k]}</svg>
+      <h3>${esc(CATS[k][lang])}</h3><p>${esc(t("s." + k))}</p><p class="tools">${esc(TOOLS[k])}</p><p class="count">${n} ${esc(t(n === 1 ? "s.count1" : "s.countN"))}</p></div>`;
+  }).join("");
+  document.getElementById("kinds").innerHTML = Object.keys(CATS).map(k => `<li style="--c:${CATS[k].c}">${esc(CATS[k][lang])}</li>`).join("");
+}
+function renderStatic(){
+  document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
+  document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+  document.getElementById("rotSr").textContent = Object.values(CATS).map(c => c.rot[lang]).join(" ");
+}
+function renderChannels(){
+  const list = [];
+  if (CONTACT.whatsapp) list.push(`<a href="https://wa.me/${esc(CONTACT.whatsapp)}" target="_blank" rel="noopener"><span>${t("ch.whatsapp")}</span><span>+${esc(CONTACT.whatsapp)}</span></a>`);
+  if (CONTACT.email) list.push(`<a href="mailto:${esc(CONTACT.email)}"><span>${t("ch.email")}</span><span>${esc(CONTACT.email)}</span></a>`);
+  if (CONTACT.linkedin) list.push(`<a href="${esc(CONTACT.linkedin)}" target="_blank" rel="noopener"><span>${t("ch.linkedin")}</span><span>${esc(CONTACT.linkedin.replace(/^https?:\/\/(www\.)?/,""))}</span></a>`);
+  document.getElementById("channels").innerHTML = list.join("");
+}
+function renderAll(){ renderStatic(); renderJump(); renderShows(); renderTiles(); renderServices(); renderChannels(); rotIdx = 0; showRot(); }
+
+/* ===== INTERAÇÃO DAS GALERIAS ===== */
+const showsEl = document.getElementById("shows");
+showsEl.addEventListener("click", e => {
+  const th = e.target.closest(".thumbs button");
+  if (th){ setSlide(Number(th.dataset.s), Number(th.dataset.i)); return; }
+  const z = e.target.closest(".zoom");
+  if (z){ openLightbox(Number(z.dataset.s)); }
+});
+showsEl.addEventListener("animationend", e => {
+  if (!e.target.matches(".prog i")) return;
+  const b = e.target.closest("button"); const si = Number(b.dataset.s), S = SHOWS[si];
+  setSlide(si, (Number(b.dataset.i) + 1) % S.slides.length);
+});
+["mouseover","focusin"].forEach(ev => showsEl.addEventListener(ev, e => { const s = e.target.closest(".show"); if (s) s.classList.add("paused"); }));
+["mouseout","focusout"].forEach(ev => showsEl.addEventListener(ev, e => {
+  const s = e.target.closest(".show"); if (s && !s.contains(e.relatedTarget)) s.classList.remove("paused");
+}));
+addEventListener("resize", () => document.querySelectorAll(".slide.page img").forEach(fitPage));
+
+const lb = document.getElementById("lightbox");
+function openLightbox(si){
+  const S = SHOWS[si], s = S.slides[S.cur || 0], body = document.getElementById("lbBody");
+  body.innerHTML = s.type === "video" ? `<video src="${s.src}" poster="${s.poster}" controls autoplay muted playsinline></video>`
+    : s.type === "phones" ? `<div class="row">${s.srcs.map(x => `<img src="${x}" alt="">`).join("")}</div>`
+    : `<img src="${s.src}" alt="${esc(s[lang].join(": "))}">`;
+  try { lb.showModal(); } catch(_) { lb.setAttribute("open",""); }
+}
+document.getElementById("lbClose").addEventListener("click", () => { lb.close ? lb.close() : lb.removeAttribute("open"); });
+lb.addEventListener("close", () => { document.getElementById("lbBody").innerHTML = ""; });
+lb.addEventListener("click", e => { if (e.target === lb) lb.close(); });
+
+/* ===== TÍTULO COM PALAVRA QUE GIRA (cor do tipo de projeto) ===== */
+let rotIdx = 0, rotTimer = null;
+function showRot(){
+  const el = document.getElementById("rot"), keys = Object.keys(CATS), k = keys[rotIdx % keys.length];
+  el.textContent = CATS[k].rot[lang]; el.style.color = CATS[k].c;
+}
+if (!reduce) rotTimer = setInterval(() => {
+  const el = document.getElementById("rot"); el.classList.add("out");
+  setTimeout(() => { rotIdx++; showRot(); el.classList.remove("out"); }, 350);
+}, 2600);
+
+document.querySelector(".lang").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  lang = b.dataset.lang; try { localStorage.setItem("anchor-lang", lang); } catch(_){}
+  renderAll(); runConsole(true);
+});
+
+/* ===== FORMULÁRIO ===== */
+document.getElementById("brief").addEventListener("submit", e => {
+  e.preventDefault();
+  const name = e.target.name.value.trim(), msg = e.target.msg.value.trim();
+  document.getElementById("copied").textContent = "";
+  document.getElementById("out").classList.add("show");
+  document.getElementById("outText").textContent = (!name || !msg) ? t("form.err") : t("form.tpl").replace("{name}", name).replace("{msg}", msg);
+});
+document.getElementById("copy").addEventListener("click", async () => {
+  const c = document.getElementById("copied");
+  try { await navigator.clipboard.writeText(document.getElementById("outText").textContent); c.textContent = t("form.copied"); }
+  catch(_) { c.textContent = t("form.copyfail"); }
+});
+
+/* ===== CONSOLE ===== */
+let conTimer = null;
+function runConsole(reset){
+  if (reduce) return;
+  clearTimeout(conTimer);
+  const items = [...document.querySelectorAll("#con li")].slice(1, -1), last = document.querySelector("#con li.done");
+  let i = 0;
+  items.forEach(li => { li.classList.remove("run"); li.querySelector(".s").textContent = "ok"; }); last.style.opacity = 1;
+  const step = () => {
+    if (i === 0){ items.forEach(li => li.querySelector(".s").textContent = "··"); last.style.opacity = .25; }
+    if (i > 0){ items[i-1].classList.remove("run"); items[i-1].querySelector(".s").textContent = "ok"; }
+    if (i < items.length){ items[i].classList.add("run"); items[i].querySelector(".s").textContent = "…"; i++; conTimer = setTimeout(step, 700); }
+    else { last.style.opacity = 1; i = 0; conTimer = setTimeout(step, 5200); }
+  };
+  conTimer = setTimeout(step, reset ? 600 : 2600);
+}
+
+/* ===== FUNDO: grade de dados com números de apuração descendo e uma linha de varredura ===== */
+(function(){
+  const c = document.getElementById("sonar"), x = c.getContext("2d"); let w, h, cols = [];
+  const pal = ["79,216,210","255,181,71","167,139,250","255,126,182"];
+  const tokens = ["R$ 1.532,26","98,4%","+12","VGV","R$ 86 mil","0,4%","SLA 4,2","OK","1.718","3/4","R$ 40,00","∑","Δ 7%","id 4501","110,6%"];
+  function size(){
+    const dpr = Math.min(devicePixelRatio || 1, 2); w = c.clientWidth; h = c.clientHeight; c.width = w*dpr; c.height = h*dpr; x.setTransform(dpr,0,0,dpr,0,0);
+    cols = []; const n = Math.max(6, Math.round(w / 120));
+    for (let i = 0; i < n; i++) cols.push({x: (i + .5) * (w / n) + (Math.random()*30-15), y: Math.random()*h, v: 12 + Math.random()*22, c: pal[i % 4], t: tokens.slice().sort(() => Math.random() - .5)});
+  }
+  let last = performance.now();
+  function draw(now){
+    const dt = Math.min(.05, Math.max(0, now - last) / 1000); last = now;
+    x.clearRect(0,0,w,h);
+    x.strokeStyle = "rgba(147,163,184,.06)"; x.lineWidth = 1;
+    for (let gx = 0; gx < w; gx += 40){ x.beginPath(); x.moveTo(gx+.5,0); x.lineTo(gx+.5,h); x.stroke(); }
+    for (let gy = 0; gy < h; gy += 40){ x.beginPath(); x.moveTo(0,gy+.5); x.lineTo(w,gy+.5); x.stroke(); }
+    x.font = "12px 'IBM Plex Mono', monospace"; x.textAlign = "center";
+    cols.forEach(col => {
+      if (!reduce) col.y += col.v * dt;
+      for (let k = 0; k < col.t.length; k++){
+        let y = (col.y + k * 46) % (h + 60) - 30;
+        const fade = Math.sin(Math.PI * Math.min(1, Math.max(0, y / h)));
+        x.fillStyle = `rgba(${col.c},${(.035 + .10 * fade).toFixed(3)})`;
+        x.fillText(col.t[k], col.x, y);
+      }
+    });
+    const sy = reduce ? h * .35 : ((now / 1000) * 60) % (h + 200) - 100;
+    const g = x.createLinearGradient(0, sy - 60, 0, sy);
+    g.addColorStop(0, "rgba(79,216,210,0)"); g.addColorStop(1, "rgba(79,216,210,.10)");
+    x.fillStyle = g; x.fillRect(0, sy - 60, w, 60);
+    x.fillStyle = "rgba(79,216,210,.35)"; x.fillRect(0, sy, w, 1);
+    if (!reduce) requestAnimationFrame(draw);
+  }
+  size(); addEventListener("resize", size); requestAnimationFrame(draw);
+})();
+
+try { const saved = localStorage.getItem("anchor-lang"); if (saved === "en" || saved === "pt") lang = saved; } catch(_){}
+renderAll();
+runConsole(false);
+</script>
+</body>
+</html>
